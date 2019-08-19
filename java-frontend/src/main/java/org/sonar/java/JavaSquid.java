@@ -84,10 +84,12 @@ public class JavaSquid {
     }
 
     //AstScanner for main files
+    org.sonar.java.model.JParser.setSema(Boolean.getBoolean("sonar.java.internal.ecj.sema"));
     astScanner = new JavaAstScanner(sonarComponents);
     astScanner.setVisitorBridge(createVisitorBridge(codeVisitors, classpath, javaVersion, sonarComponents, SymbolicExecutionMode.getMode(visitors, xFileEnabled)));
 
     //AstScanner for test files
+    org.sonar.java.model.JParser.setSema(false);
     astScannerForTests = new JavaAstScanner(sonarComponents);
     astScannerForTests.setVisitorBridge(createVisitorBridge(testCodeVisitors, testClasspath, javaVersion, sonarComponents, SymbolicExecutionMode.DISABLED));
 
